@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 
 namespace War
 {
@@ -6,7 +7,10 @@ namespace War
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CreateDeck myDeck = new CreateDeck();
+            Console.WriteLine(JsonSerializer.Serialize(myDeck.CreateDeckList, new JsonSerializerOptions() { WriteIndented = true }));
+            Console.WriteLine(myDeck.CreateDeckList.Count);
+
         }
     }
 }
