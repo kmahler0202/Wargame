@@ -8,11 +8,12 @@ namespace War
         public List<Card> Cards { get; private set; }
         public List<Card> Discard { get; private set; }
 
+        public bool HasLost => Cards.Count + Discard.Count == 0;
+
         public PlayerDeck()
         {
             Cards = new List<Card>();
             Discard = new List<Card>();
-
         }
 
         public PlayerDeck(List<Card> cards)
@@ -22,10 +23,9 @@ namespace War
         }
 
         public List<Card> Draw(int number = 1, bool remove = false)
-
         {
 
-            if (number < 1 || number > Cards.Count)
+            if (number < 1)
                 throw new ArgumentOutOfRangeException(nameof(number));
 
             Console.WriteLine($"Drawing {number} card(s).");
@@ -34,12 +34,12 @@ namespace War
             {
                 if(Discard.Count == 0)
                 {
-                    Console.WriteLine("You Lose!");
-
+                    throw new Exception("Cannot draw. Game over.");
                 }
-                Cards = Discard;
-                Discard.RemoveAll(c => true);
-                Shuffle(7);
+
+                Console.WriteLine($"{Discard.Count} card(s) in discard pile.");
+                Cards = Discard.Shuffle(7);
+                Discard.Clear();
             }
 
             var drawn = Cards.GetRange(0, number);
@@ -50,33 +50,21 @@ namespace War
             return drawn;
         }
 
+        public Card PlayCard()
+        {
+            return Draw(1, true)[0];
+        }
+
         public void Shuffle(int times = 1)
         {
-            var rand = new Random();
-            List<Card> workingCards = Cards;
-
-            for (int shuff = 0; shuff < times; ++shuff)
-            {
-                Console.WriteLine("Shuffling...");
-                List<Card> tempCards = new List<Card>();
-
-                while (workingCards.Count > 0)
-                {
-                    int cardIndex = rand.Next(workingCards.Count);
-                    tempCards.Add(workingCards[cardIndex]);
-                    workingCards.RemoveAt(cardIndex);
-                }
-
-                workingCards = tempCards;
-            }
-
-            Cards = workingCards;
-
+            Cards = Cards.Shuffle(times);
         }
-        public void addtodiscard(Card CardtoDiscard)
+
+        public void AddToDiscard(params Card[] cardsToDiscard)
         {
-            Discard.Add(CardtoDiscard);
+            Discard.AddRange(cardsToDiscard);
         }
+
         public static PlayerDeck CreateDefaultDeck()
         {
             var c = new PlayerDeck();

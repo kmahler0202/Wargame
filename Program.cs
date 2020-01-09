@@ -8,42 +8,63 @@ namespace War
     {
         static void Main(string[] args)
         {
-            PlayerDeck myDeck = PlayerDeck.CreateDefaultDeck();
-            myDeck.Shuffle(20);
-            var player1deck = new PlayerDeck(myDeck.Draw(26, true));
-            var cpudeck = new PlayerDeck(myDeck.Draw(26, true));
-            
-            
-            
-            var player1card = player1deck.Draw(1, true).First();
-            Console.WriteLine(player1card.ToJsonString());
+            PlayerDeck masterDeck = PlayerDeck.CreateDefaultDeck();
+            masterDeck.Shuffle(20);
 
-            var cpucard = cpudeck.Draw(1, true).First();
-            Console.WriteLine(cpucard.ToJsonString());
+            var humanDeck = new PlayerDeck(masterDeck.Draw(26, true));
+            var cpuDeck = new PlayerDeck(masterDeck.Draw(26, true));
 
-            if (player1card.ValueWar > cpucard.ValueWar)
+            int battlecount = 0;
+
+            while (!humanDeck.HasLost && !cpuDeck.HasLost)
             {
-                Console.WriteLine("Player One Wins this battle!");
-                player1deck.addtodiscard(player1card);
-                player1deck.addtodiscard(cpucard);
+                ++battlecount;
+                var playerCard = humanDeck.PlayCard();
+                Console.WriteLine(playerCard.ToJsonString());
+
+                var cpucard = cpuDeck.PlayCard();
+                Console.WriteLine(cpucard.ToJsonString());
+
+                if (playerCard.ValueWar > cpucard.ValueWar)
+                {
+                    Console.WriteLine("Human Wins this battle!");
+                    humanDeck.AddToDiscard(playerCard, cpucard);
+                }
+
+                else if (playerCard.ValueWar < cpucard.ValueWar)
+                {
+                    Console.WriteLine("The CPU Wins this battle!");
+                    cpuDeck.AddToDiscard(playerCard, cpucard);
+                }
+
+                else
+                {
+                    Console.WriteLine("There has been a tie! Draw three cards.");
+
+                    for (int i = 0; i < 3; ++i)
+                    {
+
+                    }
+                }
+
+                //System.Threading.Thread.Sleep(1000);
+                   
             }
 
-            else if (player1card.ValueWar < cpucard.ValueWar)
+            Console.WriteLine($"There have been {battlecount} battle(s).");
+
+            if (humanDeck.HasLost)
             {
-                Console.WriteLine("The CPU Wins this battle!");
-                cpudeck.addtodiscard(player1card);
-                cpudeck.addtodiscard(cpucard);
+                Console.WriteLine("No suprise here. You have proven humans are obsolete. Time to die.");
             }
 
-            else
-                Console.WriteLine("There has been a tie! Draw another card.");
+            if (cpuDeck.HasLost)
+            {
+                Console.WriteLine("Congratulations. You are the superior being.");
+            }
 
-            Console.WriteLine("Press Spacebar to play the next round.");
-            Console.ReadKey();
+            Console.ReadLine();
 
-            
-            
-           
         }
     }
 }
