@@ -3,18 +3,22 @@ using System.Collections.Generic;
 
 namespace War
 {
-    public class CardDeck
+    public class PlayerDeck
     {
         public List<Card> Cards { get; private set; }
+        public List<Card> Discard { get; private set; }
 
-        public CardDeck()
+        public PlayerDeck()
         {
             Cards = new List<Card>();
+            Discard = new List<Card>();
+
         }
 
-        public CardDeck(List<Card> cards)
+        public PlayerDeck(List<Card> cards)
         {
             Cards = cards ?? throw new ArgumentNullException(nameof(cards));
+            Discard = new List<Card>();
         }
 
         public List<Card> Draw(int number = 1, bool remove = false)
@@ -55,10 +59,13 @@ namespace War
             Cards = workingCards;
 
         }
-
-        public static CardDeck CreateDefaultDeck()
+        public void addtodiscard(Card CardtoDiscard)
         {
-            var c = new CardDeck();
+            Discard.Add(CardtoDiscard);
+        }
+        public static PlayerDeck CreateDefaultDeck()
+        {
+            var c = new PlayerDeck();
 
             foreach (Suit Color in Enum.GetValues(typeof(Suit)))
             {

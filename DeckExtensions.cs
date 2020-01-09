@@ -11,5 +11,9 @@ namespace War
         {
             return JsonSerializer.Serialize(cards, new JsonSerializerOptions() { WriteIndented = true });
         }
+        public static string ToJsonString(this Card card)
+        {
+            return JsonSerializer.Serialize(card, new JsonSerializerOptions() { WriteIndented = true });
+        }
     }
 }
