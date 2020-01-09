@@ -22,11 +22,25 @@ namespace War
         }
 
         public List<Card> Draw(int number = 1, bool remove = false)
+
         {
+
             if (number < 1 || number > Cards.Count)
                 throw new ArgumentOutOfRangeException(nameof(number));
 
             Console.WriteLine($"Drawing {number} card(s).");
+
+            if(Cards.Count == 0)
+            {
+                if(Discard.Count == 0)
+                {
+                    Console.WriteLine("You Lose!");
+
+                }
+                Cards = Discard;
+                Discard.RemoveAll(c => true);
+                Shuffle(7);
+            }
 
             var drawn = Cards.GetRange(0, number);
 

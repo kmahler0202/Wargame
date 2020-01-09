@@ -13,11 +13,14 @@ namespace War
             var player1deck = new PlayerDeck(myDeck.Draw(26, true));
             var cpudeck = new PlayerDeck(myDeck.Draw(26, true));
             
+            
+            
             var player1card = player1deck.Draw(1, true).First();
             Console.WriteLine(player1card.ToJsonString());
-            
+
             var cpucard = cpudeck.Draw(1, true).First();
             Console.WriteLine(cpucard.ToJsonString());
+
             if (player1card.ValueWar > cpucard.ValueWar)
             {
                 Console.WriteLine("Player One Wins this battle!");
@@ -34,11 +37,13 @@ namespace War
 
             else
                 Console.WriteLine("There has been a tie! Draw another card.");
-                
 
-                
+            Console.WriteLine("Press Spacebar to play the next round.");
+            Console.ReadKey();
 
-            Console.ReadLine();
+            
+            
+           
         }
     }
 }
