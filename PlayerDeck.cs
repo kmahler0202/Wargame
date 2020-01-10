@@ -9,6 +9,7 @@ namespace War
         public List<Card> Discard { get; private set; }
 
         public bool HasLost => Cards.Count + Discard.Count == 0;
+        
 
         public PlayerDeck()
         {

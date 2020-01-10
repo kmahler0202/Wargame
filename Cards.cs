@@ -18,7 +18,7 @@ namespace War
 
         public int ValueWar => (int)Number;
 
-  
+        public static bool Count { get; internal set; }
 
         public Card(Suit Suit, Number Number)
         {

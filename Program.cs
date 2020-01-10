@@ -19,39 +19,120 @@ namespace War
             while (!humanDeck.HasLost && !cpuDeck.HasLost)
             {
                 ++battlecount;
-                var playerCard = humanDeck.PlayCard();
-                Console.WriteLine(playerCard.ToJsonString());
+                var playercard = humanDeck.PlayCard();
+                Console.WriteLine(playercard.ToJsonString());
 
                 var cpucard = cpuDeck.PlayCard();
                 Console.WriteLine(cpucard.ToJsonString());
 
-                if (playerCard.ValueWar > cpucard.ValueWar)
+
+
+                if (playercard.ValueWar > cpucard.ValueWar) 
                 {
                     Console.WriteLine("Human Wins this battle!");
-                    humanDeck.AddToDiscard(playerCard, cpucard);
+                    humanDeck.AddToDiscard(playercard, cpucard);
                 }
 
-                else if (playerCard.ValueWar < cpucard.ValueWar)
+                else if (playercard.ValueWar < cpucard.ValueWar)
                 {
                     Console.WriteLine("The CPU Wins this battle!");
-                    cpuDeck.AddToDiscard(playerCard, cpucard);
+                    cpuDeck.AddToDiscard(playercard, cpucard);
                 }
+                else if (playercard.ValueWar == cpucard.ValueWar)
+                {                                 
+                                        
 
-                else
-                {
-                    Console.WriteLine("There has been a tie! Draw three cards.");
-
-                    for (int i = 0; i < 3; ++i)
                     {
 
+                        Console.WriteLine("There has been a tie! Draw three cards.");
+                        var playertie1 = humanDeck.PlayCard();
+                        var cputie1 = cpuDeck.PlayCard();
+
+                        var playertie2 = humanDeck.PlayCard();
+                        var cputie2 = cpuDeck.PlayCard();
+
+                        var playertie3 = humanDeck.PlayCard();
+                        var cputie3 = cpuDeck.PlayCard();
+
+                        var playerCardtie = humanDeck.PlayCard();
+                        var cpucardtie = cpuDeck.PlayCard();
+                        
+
+                        
+                        Console.WriteLine("Human's three Cards:");
+                        
+                        Console.WriteLine(playertie1.ToJsonString());
+                        Console.WriteLine(playertie1.ToJsonString());
+                        Console.WriteLine(playertie2.ToJsonString());
+                        Console.WriteLine(playertie3.ToJsonString());
+
+                        Console.WriteLine("CPU's three Cards:");
+                        Console.WriteLine(cputie1.ToJsonString());
+                        Console.WriteLine(cputie1.ToJsonString());
+                        Console.WriteLine(cputie2.ToJsonString());
+                        Console.WriteLine(cputie3.ToJsonString());
+
+                        if (playerCardtie.ValueWar == cpucardtie.ValueWar)
+                        {
+
+                            var Wartiecpu = cpuDeck.PlayCard();
+                            var Wartieplayer = cpuDeck.PlayCard();
+
+                            Console.WriteLine("Human's War Card:");
+                            Console.WriteLine(Wartieplayer.ToJsonString());
+                            Console.WriteLine("CPU's War Card:");
+                            Console.WriteLine(Wartiecpu.ToJsonString());
+                        
+
+                           if (Wartiecpu.ValueWar > Wartieplayer.ValueWar)
+
+                            {
+                                Console.WriteLine("CPU Wins This Debaccle");
+                                cpuDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie2, cputie2, playertie3, cputie3, Wartieplayer, Wartiecpu);
+                            }
+                            else if (Wartiecpu.ValueWar > Wartieplayer.ValueWar)
+                            {
+                                Console.WriteLine("Human Wins This Debaccle");
+                                humanDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie2, cputie2, playertie3, cputie3, Wartieplayer, Wartiecpu);
+                            }
+                        }
+
+                        else if (cpucardtie.ValueWar > playerCardtie.ValueWar)
+                        {
+                            Console.WriteLine("Human's War Card:");
+                            Console.WriteLine(playerCardtie.ToJsonString());
+                            Console.WriteLine("CPU's War Card:");
+                            Console.WriteLine(cpucardtie.ToJsonString());
+
+                            Console.WriteLine("The CPU win's all 10 cards in this War...");
+                            cpuDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie1, cputie1, playertie2, cputie2, playertie3, cputie3);
+                        }
+                        else if (cpucardtie.ValueWar < playerCardtie.ValueWar)
+                        {
+                            Console.WriteLine("Human's War Card:");
+                            Console.WriteLine(playerCardtie.ToJsonString());
+                            Console.WriteLine("CPU's War Card:");
+                            Console.WriteLine(cpucardtie.ToJsonString());
+
+                            Console.WriteLine("Congratulations! You win all 10 Cards this War");
+                            humanDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie1, cputie1, playertie2, cputie2, playertie3, cputie3);
+                        }
+
                     }
+                    
+
+
                 }
 
-                //System.Threading.Thread.Sleep(1000);
+                //System.Threading.Thread.Sleep(3000);
                    
             }
 
             Console.WriteLine($"There have been {battlecount} battle(s).");
+            Console.WriteLine(humanDeck.Discard.Count);
+            Console.WriteLine(cpuDeck.Discard.Count);
+            Console.WriteLine(humanDeck.Cards.Count);
+            Console.WriteLine(cpuDeck.Cards.Count);
 
             if (humanDeck.HasLost)
             {
