@@ -41,6 +41,7 @@ namespace War
                 Console.WriteLine($"{Discard.Count} card(s) in discard pile.");
                 Cards = Discard.Shuffle(7);
                 Discard.Clear();
+               
             }
 
             var drawn = Cards.GetRange(0, number);

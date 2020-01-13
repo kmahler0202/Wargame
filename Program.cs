@@ -39,6 +39,8 @@ namespace War
                     cpuDeck.AddToDiscard(playercard, cpucard);
                 }
                 else if (playercard.ValueWar == cpucard.ValueWar)
+
+                  
                 {                                 
                                         
 
@@ -88,12 +90,12 @@ namespace War
 
                             {
                                 Console.WriteLine("CPU Wins This Debaccle");
-                                cpuDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie2, cputie2, playertie3, cputie3, Wartieplayer, Wartiecpu);
+                                cpuDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie, playertie2, cputie2, playertie3, cputie3, Wartieplayer, Wartiecpu);
                             }
                             else if (Wartiecpu.ValueWar > Wartieplayer.ValueWar)
                             {
                                 Console.WriteLine("Human Wins This Debaccle");
-                                humanDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie2, cputie2, playertie3, cputie3, Wartieplayer, Wartiecpu);
+                                humanDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie, playertie2, cputie2, playertie3, cputie3, Wartieplayer, Wartiecpu);
                             }
                         }
 
@@ -105,7 +107,7 @@ namespace War
                             Console.WriteLine(cpucardtie.ToJsonString());
 
                             Console.WriteLine("The CPU win's all 10 cards in this War...");
-                            cpuDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie1, cputie1, playertie2, cputie2, playertie3, cputie3);
+                            cpuDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie, playertie1, cputie1, playertie2, cputie2, playertie3, cputie3);
                         }
                         else if (cpucardtie.ValueWar < playerCardtie.ValueWar)
                         {
@@ -115,7 +117,7 @@ namespace War
                             Console.WriteLine(cpucardtie.ToJsonString());
 
                             Console.WriteLine("Congratulations! You win all 10 Cards this War");
-                            humanDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie); //playertie1, cputie1, playertie2, cputie2, playertie3, cputie3);
+                            humanDeck.AddToDiscard(playercard, cpucard, cpucardtie, playerCardtie, playertie1, cputie1, playertie2, cputie2, playertie3, cputie3);
                         }
 
                     }
